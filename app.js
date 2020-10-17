@@ -5,8 +5,8 @@ const client = new Discord.Client();
 
 const config = require('./config.json');
 const prefix = config.prefix;
-const ipAddress = config.ipAddress;
-const port = config.port;
+const ipAddress = config.serverAddress;
+const port = config.serverPort;
 const updateInterval = config.updateInterval;
 const serverName = config.serverName;
 
