@@ -19,13 +19,14 @@ Minecraft Server Status Bot for Discord
 ## Useage
 - By default command prefix is `mc!`, this can be changed in config.json
 - Available commands are:
-  - `help` replys with list of bot commands
-  - `ip` replys with minecraft server address listed in your config file
-  - `status [Server Address(optional)]` responds with status of minecraft server. if no server address given, bot will use the one set in your config file
-  - `online [Server Address(optional)]` responds with list of online players. pulls from player sample array, may have limitation on number of results
-  - `force-update` forces the bot to update it's status with server player count. can only be run by server moderators.
-- Example:
+  - `help` replies with list of bot commands
+  - `ip` replies with minecraft server address listed in your config file
+  - `status [Server Address(optional)]` or `stat` responds with status of minecraft server. if no server address given, bot will use the one set in your config file
+  - `online [Server Address(optional)]` or `on` responds with list of online players. pulls from player sample array, may have limitation on number of results
+  - `force-update` or `fu` forces the bot to update it's status with server player count. can only be run by server moderators.
+- Examples:
   - `mc!status`
+  - `mc!on`
   - `mc!status mc.hypixel.net`
 
   ![Example](https://github.com/emerysteele/minecraft-server-status-bot/blob/main/sample.png?raw=true)
