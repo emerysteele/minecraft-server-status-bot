@@ -27,3 +27,5 @@ Minecraft Server Status Bot for Discord
 - Example:
   - `mc!status`
   - `mc!status mc.hypixel.net`
+
+  ![Example](https://github.com/emerysteele/minecraft-server-status-bot/blob/main/sample.png?raw=true)
