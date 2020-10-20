@@ -1,6 +1,8 @@
 # minecraft-server-status-bot
 Minecraft Server Status Bot for Discord
 
+ ![Example](https://github.com/emerysteele/minecraft-server-status-bot/blob/main/sample-member-list.png?raw=true)
+
 ## Requirements
 - NodeJS
 - Minecraft JAVA Server
