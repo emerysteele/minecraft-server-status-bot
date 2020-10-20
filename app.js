@@ -20,7 +20,9 @@ const updateChannel = async () => {
     const players = body.players.online
     const playersMax = body.players.max
     const status = (body.status ? "Online" : "Offline")
-	client.user.setActivity('Minecraft | ' + players + '/' + playersMax);
+	const playerCount = players + '/' + playersMax;
+	const statusTitle = (playerCount.length <= 10 ? "Minecraft" :"MC");
+	client.user.setActivity(statusTitle + ' | ' + playerCount);
 
     return true
 }
@@ -43,14 +45,15 @@ client.on('message', async (message) => {
 		if(command === 'help'){
 			let helpPage = args[0] || "1";
 			if(helpPage === "1"){
-				message.reply(`commands: ${prefix}status [serveraddress (optional)], ${prefix}ip, ${prefix}online`)
+				var commandList = "`"+prefix+"ip`\n`"+prefix+"status [serveraddress (optional)]` or `"+prefix+"stat`\n`"+prefix+"online [serveraddress (optional)]` or `"+prefix+"on`\n`"+prefix+"force-update` or `"+prefix+"fu`"
+				message.reply(`bot commands:\n${commandList}`)
 			}
 			else if(helpPage === "2"){
 				
 			}
 		}
 		if(command === 'ip'){
-			message.reply(`${ipAddress}${port ? `:${port}` : ''}`)
+			message.reply(`mc server address:\n${ipAddress}${port ? `:${port}` : ''}`)
 		}
 		if(command === 'force-update' || command === 'fu'){
 			if (!message.member.hasPermission('MANAGE_MESSAGES')) {
@@ -79,9 +82,10 @@ client.on('message', async (message) => {
 				if(playerSample != null){
 					for (var i = 0; i < playerSample.length; i++){
 						var obj = playerSample[i];
-						playersNow += obj['name'] + " ";
+						playersNow += obj['name'] + ", ";
 					}
 				}
+				playersNow = playersNow.replace(/,\s*$/, "")
 				const embed = new Discord.MessageEmbed()
 					.setAuthor(`${saddress}:${sport}`)
 					.attachFiles(attachment)
@@ -115,15 +119,16 @@ client.on('message', async (message) => {
 					playersNow += obj['name'] + " ";
 				}
 			}
-			message.channel.send(`Online: ${playersNow}`)
+			playersNow = playersNow.replace(/,\s*$/, "")
+			message.channel.send(`Online: ${body.players.online}/${body.players.max} ${playersNow}`)
 		}
 		if(command === 'supersecretcommandtemplate'){
 			let helpPage = args[0] || "1"; //take the page from the msg if supplied, otherwise default to page 1
 			if(helpPage === "1"){
-				message.channel.send('Help page 1!')
+				message.channel.send('Super secret commandd template page 1!')
 			}
 			else if(helpPage === "2"){
-				message.channel.send('Help page 2!')
+				message.channel.send('Super secret commandd template page 2!')
 			}
 		}
 	}
