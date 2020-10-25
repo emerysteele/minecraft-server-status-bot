@@ -148,7 +148,7 @@ client.on('message', async(message) => {
 		if(command === 'help') {
 			let helpPage = args[0] || "1";
 			if(helpPage === "1") {
-				var commandList = "`" + config.prefix + "ip`" + "\n`" + config.prefix + "status|stat [serveraddress]`" + "\n`" + config.prefix + "online|on [serveraddress]`" + "\n`" + config.prefix + "force-update|fu`\n`" + config.prefix + "set <address|port|name|prefix> [arg]`";
+				var commandList = "`" + config.prefix + "ip`" + "\n`" + config.prefix + "status|stat [serveraddress]`" + "\n`" + config.prefix + "online|on [serveraddress]`" + "\n`" + config.prefix + "force-update|fu`\n`" + config.prefix + "set <address|port|name|prefix> [value]`" + "\n`" + config.prefix + "pin`";
 				message.reply(`bot commands:\n${commandList}`)
 			} else if(helpPage === "2") {}
 		}
