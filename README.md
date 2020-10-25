@@ -16,6 +16,7 @@ Minecraft Server Status Bot for Discord
   - `npm i discord.js`
   - `npm i node-fetch`
   - `npm i ms`
+  - `npm i fs`
 - Run using: `node app.js` or if you use pm2: `pm2 start app.js`
 - Invite the bot to your discord server with permisions to:
   - `Send Messages`
@@ -31,7 +32,9 @@ Minecraft Server Status Bot for Discord
   - `status|stat [serveraddress:port]` responds with status of minecraft server. If no server address given, bot will use the one set in your config file. Port will default to 25565 if not specified.
   - `online|on [serveraddress:port]` responds with list of online players. Pulls from player sample array, may have limitation on number of results.
   - `force-update|fu` forces the bot to update it's status with server player count. Can only be run by server moderators.
+  - `set <address|port|name|prefix> [value]` updates the value for the specified setting in the config. if no value is set, it will return the current value
 - Examples:
+  - `mc!set address mc.hypixel.net`
   - `mc!status`
   - `mc!on`
   - `mc!status mc.hypixel.net`
