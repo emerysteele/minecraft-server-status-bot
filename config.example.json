@@ -1,9 +1,11 @@
 {
-    "token": "**Discord Bot Token**",
-    "serverAddress": "**minecraft server address (ip/hostname)**",
-    "serverPort": "25565",
-    "serverName": "Server Name",
-    "updateInterval": "5min",
-
-    "prefix": "mc!"
+  "token": "**Discord Bot Token**",
+  "prefix": "mc!",
+  "serverAddress": "**minecraft server address (ip/hostname)**,
+  "serverPort": "25565",
+  "serverName": "**Server Name**",
+  "updateInterval": "1min",
+  "debugMode": true,
+  "debugLvl": 1,
+  "pinUpdate": true
 }
