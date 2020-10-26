@@ -8,7 +8,6 @@ const config = require(configFile);
 const debugMode = config.debugMode;
 const debugLvl = config.debugLvl;
 const updateInterval = config.updateInterval;
-const pinUpdate = config.pinUpdate;
 const debug = async(debugmessage, debuglvl = 1) => {
 	if(debugMode && (debugLvl >= debuglvl)) {
 		console.log(debugmessage);
@@ -33,7 +32,7 @@ const updateChannel = async() => {
 			},
 			status: 'online'
 		}).catch(console.error);
-		if(pinUpdate) {
+		if(config.pinUpdate) {
 			updatePin(body)
 		}
 	} else if(status == "Offline") {
@@ -43,7 +42,7 @@ const updateChannel = async() => {
 			},
 			status: 'idle'
 		}).catch(console.error);
-		if(pinUpdate) {
+		if(config.pinUpdate) {
 			updatePin(body)
 		}
 	}
@@ -381,6 +380,27 @@ client.on('message', async(message) => {
 					}));
 				} else {
 					const sentMessage = await message.channel.send(`No prefix specified. Current prefix is: ` + "`" + `${config.prefix}` + "`").then(r => r.delete({
+						timeout: 3000
+					}));
+				}
+			} else if(setCommand === "pinupdate") {
+				if(typeof args[1] !== "undefined" && (args[1] == 'true' || args[1] == 'false')) {
+					const sentMessage = await message.channel.send(`Setting Pin Update!`)
+					var isTrueSet = (args[1] == 'true');
+					var isFalseSet = (args[1] == 'false');
+					if(isTrueSet){
+						config.pinUpdate = true;
+						updateConfigFile();
+					}
+					else if(isFalseSet){
+						config.pinUpdate = false;
+						updateConfigFile();
+					}
+					await sentMessage.edit(`Pin Update set to ${config.pinUpdate}`).then(r => r.delete({
+						timeout: 3000
+					}));
+				} else {
+					const sentMessage = await message.channel.send(`No valid input for pin update. Current pin update is: ` + "`" + `${config.pinUpdate}` + "`").then(r => r.delete({
 						timeout: 3000
 					}));
 				}
