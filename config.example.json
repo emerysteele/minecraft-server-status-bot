@@ -1,7 +1,7 @@
 {
   "token": "**Discord Bot Token**",
   "prefix": "mc!",
-  "serverAddress": "**minecraft server address (ip/hostname)**,
+  "serverAddress": "**minecraft server address (ip/hostname)**",
   "serverPort": "25565",
   "serverName": "**Server Name**",
   "updateInterval": "1min",
