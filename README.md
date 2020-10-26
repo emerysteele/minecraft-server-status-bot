@@ -33,7 +33,7 @@ Minecraft Server Status Bot for Discord
   - `online|on [serveraddress:port]` responds with list of online players. Pulls from player sample array, may have limitation on number of results.
   - `force-update|fu` forces the bot to update it's status with server player count. Can only be run by server moderators.
   - `pin` posts the status of your mc server + pins it to the Discord channel. status/pin will be auto updated at the interval set in your config.json file
-  - `set <address|port|name|prefix> [value]` updates the value for the specified setting in the config. if no value is set, it will return the current value
+  - `set <address|port|name|prefix|pinupdate> [value]` updates the value for the specified setting in the config. if no value is set, it will return the current value
 - Examples:
   - `mc!set address mc.hypixel.net`
   - `mc!status`
