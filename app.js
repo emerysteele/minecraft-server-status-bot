@@ -152,10 +152,7 @@ client.on('message', async(message) => {
 			} else if(helpPage === "2") {}
 		}
 		if(command === 'ip') {
-			message.reply(`mc server address:\n${config.serverAddress}${config.serverPort ? `: $ {
-					config.serverPort
-				}
-				` : ''}`)
+			message.reply(`mc server address:\n${config.serverAddress}${config.serverPort ? `:${config.serverPort}` : ''}`)
 		}
 		if(command === 'force-update' || command === 'fu') {
 			if(!message.member.hasPermission('MANAGE_MESSAGES')) {
