@@ -147,7 +147,7 @@ client.on('message', async(message) => {
 		if(command === 'help') {
 			let helpPage = args[0] || "1";
 			if(helpPage === "1") {
-				var commandList = "`" + config.prefix + "ip`" + "\n`" + config.prefix + "status|stat [serveraddress]`" + "\n`" + config.prefix + "online|on [serveraddress]`" + "\n`" + config.prefix + "force-update|fu`\n`" + config.prefix + "set <address|port|name|prefix> [value]`" + "\n`" + config.prefix + "pin`";
+				var commandList = "`" + config.prefix + "ip`" + "\n`" + config.prefix + "status|stat [serveraddress]`" + "\n`" + config.prefix + "online|on [serveraddress]`" + "\n`" + config.prefix + "force-update|fu`\n`" + config.prefix + "set <address|port|name|prefix|pinupdate|showPlayerSample> [value]`" + "\n`" + config.prefix + "pin`";
 				message.reply(`bot commands:\n${commandList}`)
 			} else if(helpPage === "2") {}
 		}
@@ -341,7 +341,7 @@ client.on('message', async(message) => {
 						timeout: 3000
 					}));
 				} else {
-					const sentMessage = await message.channel.send(`No address specified. Current address is: ` + "`" + `${config.serverAddress}` + "`").then(r => r.delete({
+					const sentMessage = await message.channel.send(`No address specified. Current value is: ` + "`" + `${config.serverAddress}` + "`").then(r => r.delete({
 						timeout: 3000
 					}));
 				}
@@ -354,7 +354,7 @@ client.on('message', async(message) => {
 						timeout: 3000
 					}));
 				} else {
-					const sentMessage = await message.channel.send(`No port specified. Current port is: ` + "`" + `${config.serverPort}` + "`").then(r => r.delete({
+					const sentMessage = await message.channel.send(`No port specified. Current value is: ` + "`" + `${config.serverPort}` + "`").then(r => r.delete({
 						timeout: 3000
 					}));
 				}
@@ -367,7 +367,7 @@ client.on('message', async(message) => {
 						timeout: 3000
 					}));
 				} else {
-					const sentMessage = await message.channel.send(`No name specified. Current name is: ` + "`" + `${config.serverName}` + "`").then(r => r.delete({
+					const sentMessage = await message.channel.send(`No name specified. Current value is: ` + "`" + `${config.serverName}` + "`").then(r => r.delete({
 						timeout: 3000
 					}));
 				}
@@ -380,7 +380,7 @@ client.on('message', async(message) => {
 						timeout: 3000
 					}));
 				} else {
-					const sentMessage = await message.channel.send(`No prefix specified. Current prefix is: ` + "`" + `${config.prefix}` + "`").then(r => r.delete({
+					const sentMessage = await message.channel.send(`No prefix specified. Current value is: ` + "`" + `${config.prefix}` + "`").then(r => r.delete({
 						timeout: 3000
 					}));
 				}
@@ -397,11 +397,32 @@ client.on('message', async(message) => {
 						config.pinUpdate = false;
 						updateConfigFile();
 					}
-					await sentMessage.edit(`Pin Update set to ${config.pinUpdate}`).then(r => r.delete({
+					await sentMessage.edit("Pin Update set to `"+config.pinUpdate+"`").then(r => r.delete({
 						timeout: 3000
 					}));
 				} else {
-					const sentMessage = await message.channel.send(`No valid input for pin update. Current pin update is: ` + "`" + `${config.pinUpdate}` + "`").then(r => r.delete({
+					const sentMessage = await message.channel.send(`No valid input for pin update. Current value is: ` + "`" + `${config.pinUpdate}` + "`").then(r => r.delete({
+						timeout: 3000
+					}));
+				}
+			} else if(setCommand === "showPlayerSample") {
+				if(typeof args[1] !== "undefined" && (args[1] == 'true' || args[1] == 'false')) {
+					const sentMessage = await message.channel.send(`Setting showPlayerSample!`)
+					var isTrueSet = (args[1] == 'true');
+					var isFalseSet = (args[1] == 'false');
+					if(isTrueSet){
+						config.showPlayerSample = true;
+						updateConfigFile();
+					}
+					else if(isFalseSet){
+						config.showPlayerSample = false;
+						updateConfigFile();
+					}
+					await sentMessage.edit("showPlayerSample set to `"+config.showPlayerSample+"`").then(r => r.delete({
+						timeout: 3000
+					}));
+				} else {
+					const sentMessage = await message.channel.send(`No valid input for showPlayerSample. Current value is: ` + "`" + `${config.showPlayerSample}` + "`").then(r => r.delete({
 						timeout: 3000
 					}));
 				}
