@@ -1,5 +1,5 @@
-# minecraft-server-status-bot
-Minecraft Server Status Bot for Discord
+# Minecraft Server Status Bot for Discord
+Updated Oct 27th 2020
 
  ![Example](https://github.com/emerysteele/minecraft-server-status-bot/blob/main/sample-member-list.png?raw=true)
 
