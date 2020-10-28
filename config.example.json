@@ -5,6 +5,7 @@
   "serverPort": "25565",
   "serverName": "**Server Name**",
   "updateInterval": "1min",
+  "showPlayerSample": true,
   "debugMode": true,
   "debugLvl": 1,
   "pinUpdate": true
