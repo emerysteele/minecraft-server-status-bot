@@ -1,4 +1,8 @@
 # Changelog
+## Oct 27 2020
+- Added `showPlayerSample <true|false>` setting to enable/disable showing the sample player list.
+  - Set to `true` by default
+
 ## Oct 26 2020
 - Added `set pinupdate <true|false>` command for changing the pinupdate from within discord
   - Can only be used by Discord moderators
