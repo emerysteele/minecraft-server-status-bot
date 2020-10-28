@@ -1,5 +1,4 @@
 # Minecraft Server Status Bot for Discord
-Updated Oct 27th 2020
 
  ![Example](https://github.com/emerysteele/minecraft-server-status-bot/blob/main/sample-member-list.png?raw=true)
 
@@ -46,3 +45,7 @@ Updated Oct 27th 2020
 - This bot uses the mcapi.ca API.
   - mcapi.ca is ratelimited to 600 requests per 10 minutes.
   - Try not to exceed this limit. If you do, your bots IP address could be blocked for abuse.
+
+
+
+Updated Oct 27th 2020
