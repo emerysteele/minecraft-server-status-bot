@@ -242,7 +242,7 @@ client.on('message', async(message) => {
 				}));
 			}
 		}
-		if(command === "pin" && pinUpdate) {
+		if(command === "pin" && config.pinUpdate) {
 			await message.delete().catch();
 			if(!message.member.hasPermission('MANAGE_MESSAGES')) {
 				await message.channel.send('Only server moderators can run this command!').then(r => r.delete({timeout: 3000}));
