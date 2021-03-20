@@ -21,7 +21,7 @@ const updateChannel = async() => {
 	}
 	else {
 		const body = await res.json()
-		const status = (body.status ? "Online" : "Offline")
+		const status = (body.online ? "Online" : "Offline")
 		if(status == "Online") {
 			const players = body.players.now
 			const playersMax = body.players.max
@@ -79,7 +79,7 @@ const updatePin = async(body) => {
 						inline: true
 					}, {
 						name: 'Status',
-						value: `${(body.status ? "Online" : "Offline")}`,
+						value: `${(body.online ? "Online" : "Offline")}`,
 						inline: true
 					}, {
 						name: 'Players',
@@ -108,7 +108,7 @@ const updatePin = async(body) => {
 			inline: true
 		}, {
 			name: 'Status',
-			value: `${(body.status ? "Online" : "Offline")}`,
+			value: `${(body.online ? "Online" : "Offline")}`,
 			inline: true
 		}, {
 			name: 'Players',
@@ -201,7 +201,7 @@ client.on('message', async(message) => {
 						inline: true
 					}, {
 						name: 'Status',
-						value: `${(body.status ? "Online" : "Offline")}`,
+						value: `${(body.online ? "Online" : "Offline")}`,
 						inline: true
 					}, {
 						name: 'Players',
@@ -275,7 +275,7 @@ client.on('message', async(message) => {
 						inline: true
 					}, {
 						name: 'Status',
-						value: `${(body.status ? "Online" : "Offline")}`,
+						value: `${(body.online ? "Online" : "Offline")}`,
 						inline: true
 					}, {
 						name: 'Players',
@@ -306,7 +306,7 @@ client.on('message', async(message) => {
 						inline: true
 					}, {
 						name: 'Status',
-						value: `${(body.status ? "Online" : "Offline")}`,
+						value: `${(body.online ? "Online" : "Offline")}`,
 						inline: true
 					}, {
 						name: 'Players',
