@@ -15,7 +15,7 @@ const debug = async(debugmessage, debuglvl = 1) => {
 }
 const updateChannel = async() => {
 	debug('Updating bot status')
-	const res = await fetch(`https://mcapi.ca/ping/all/${config.serverAddress}${config.serverPort ? `:${config.serverPort}` : ''}`)
+	const res = await fetch(`https://mcapi.us/server/status?ip=${config.serverAddress}&port=${config.serverPort ? `${config.serverPort}` : ''}`)
 	if(!res) {
 		return false
 	}
@@ -23,7 +23,7 @@ const updateChannel = async() => {
 		const body = await res.json()
 		const status = (body.status ? "Online" : "Offline")
 		if(status == "Online") {
-			const players = body.players.online
+			const players = body.players.now
 			const playersMax = body.players.max
 			const playerCount = players + '/' + playersMax;
 			const statusTitle = (playerCount.length <= 10 ? "Minecraft" : "MC");
@@ -59,7 +59,7 @@ const updatePin = async(body) => {
 	let saddress = config.serverAddress;
 	let sport = config.serverPort;
 	debug(body, 2)
-	if(body.status) {
+	if(body.status == "success") {
 		const attachment = new Discord.MessageAttachment(Buffer.from(body.favicon.substr('data:image/png;base64,'.length), 'base64'), "icon.png")
 		var playerSample = (config.showPlayerSample ? body.players.sample : "");
 		var playersNow = ""
@@ -72,18 +72,18 @@ const updatePin = async(body) => {
 		playersNow = playersNow.replace(/,\s*$/, "")
 		const embed = new Discord.MessageEmbed().setAuthor(`${saddress}:${sport}`).attachFiles(attachment).setThumbnail("attachment://icon.png").addFields({
 			name: 'Motd',
-			value: `${body.motds.clean}`
-		}, {
-			name: 'Version',
-			value: `${body.version.name}`,
-			inline: true
-		}, {
-			name: 'Status',
-			value: `${(body.status ? "Online" : "Offline")}`,
-			inline: true
-		}, {
-			name: 'Players',
-			value: `${body.players.online}/${body.players.max} ${(body.players.sample == null?'':playersNow)}`
+						value: `${body.motd ? `${body.motd}` : '\u200b'}`
+					}, {
+						name: 'Version',
+						value: `${body.server.name ? `${body.server.name}` : '\u200b'}`,
+						inline: true
+					}, {
+						name: 'Status',
+						value: `${(body.status ? "Online" : "Offline")}`,
+						inline: true
+					}, {
+						name: 'Players',
+						value: `${body.players.now}/${body.players.max} ${(body.players.sample == null?'':playersNow)}`
 		}, ).setColor("#5b8731").setFooter(`Minecraft Server Status Bot for Discord`)
 		try {
 			const message = await channel.messages.fetch(config.pinId);
@@ -172,16 +172,16 @@ client.on('message', async(message) => {
 		if(command === 'status' || command === "stat") {
 			let saddress = args[0] || config.serverAddress;
 			let sport = args[1] || config.serverPort;
-			const res = await fetch(`https://mcapi.ca/ping/all/${saddress}${sport ? `:${sport}` : ''}`)
+			const res = await fetch(`https://mcapi.us/server/status?ip=${saddress}&port=${sport ? `${sport}` : ''}`)
 			if(!res) {
 				message.delete().catch()
-				const sentMessage = await message.channel.send(`Looks like mcapi.ca is not reachable... Please verify it's online and not being blocked!`).then(r => r.delete({
+				const sentMessage = await message.channel.send(`Looks like mcapi.us is not reachable... Please verify it's online and not being blocked!`).then(r => r.delete({
 					timeout: 3000
 				}));
 			} else {
 				const body = await res.json()
 				debug(body, 2)
-				if(body.status) {
+				if(body.status == "success") {
 					const attachment = new Discord.MessageAttachment(Buffer.from(body.favicon.substr('data:image/png;base64,'.length), 'base64'), "icon.png")
 					var playerSample = (config.showPlayerSample ? body.players.sample : "");
 					var playersNow = ""
@@ -194,10 +194,10 @@ client.on('message', async(message) => {
 					playersNow = playersNow.replace(/,\s*$/, "")
 					const embed = new Discord.MessageEmbed().setAuthor(`${saddress}:${sport}`).attachFiles(attachment).setThumbnail("attachment://icon.png").addFields({
 						name: 'Motd',
-						value: `${body.motds.clean}`
+						value: `${body.motd ? `${body.motd}` : '\u200b'}`
 					}, {
 						name: 'Version',
-						value: `${body.version.name}`,
+						value: `${body.server.name ? `${body.server.name}` : '\u200b'}`,
 						inline: true
 					}, {
 						name: 'Status',
@@ -205,13 +205,14 @@ client.on('message', async(message) => {
 						inline: true
 					}, {
 						name: 'Players',
-						value: `${body.players.online}/${body.players.max} ${(body.players.sample == null?'':playersNow)}`
+						value: `${body.players.now}/${body.players.max} ${(body.players.sample == null?'':playersNow)}`
 					}, ).setColor("#5b8731").setFooter(`Minecraft Server Status Bot for Discord`)
 					message.channel.send(`Status for **${saddress}:${sport}**:`, {
 						embed
 					})
 				} else {
 					message.delete().catch()
+					const errorm = body.error;
 					message.channel.send(`Looks like the server is not reachable... Please verify it's online and not blocking access!`).then(r => r.delete({
 						timeout: 3000
 					}));
@@ -221,10 +222,10 @@ client.on('message', async(message) => {
 		if(command === "online" || command === "on") {
 			let saddress = args[0] || config.serverAddress;
 			let sport = args[1] || config.serverPort;
-			const res = await fetch(`https://mcapi.ca/ping/all/${saddress}${sport ? `:${sport}` : ''}`)
-			if(!res) return message.channel.send(`Looks like mcapi.ca is not reachable... Please verify it's online and not being blocked!`)
+			const res = await fetch(`https://mcapi.us/server/status?ip=${saddress}&port=${sport ? `${sport}` : ''}`)
+			if(!res) return message.channel.send(`Looks like mcapi.us is not reachable... Please verify it's online and not being blocked!`)
 			const body = await res.json()
-			if(body.status) {
+			if(body.status == "success") {
 				var playerSample = (config.showPlayerSample ? body.players.sample : "");
 				var playersNow = ""
 				if(playerSample != null) {
@@ -234,7 +235,7 @@ client.on('message', async(message) => {
 					}
 				}
 				playersNow = playersNow.replace(/,\s*$/, "")
-				message.channel.send(`Online: ${body.players.online}/${body.players.max} ${playersNow}`);
+				message.channel.send(`Online: ${body.players.now}/${body.players.max} ${playersNow}`);
 			} else {
 				message.delete().catch()
 				message.channel.send(`Looks like the server is not reachable... Please verify it's online and not blocking access!`).then(r => r.delete({
@@ -250,11 +251,11 @@ client.on('message', async(message) => {
 			else {
 				let saddress = args[0] || config.serverAddress;
 				let sport = args[1] || config.serverPort;
-				const res = await fetch(`https://mcapi.ca/ping/all/${saddress}${sport ? `:${sport}` : ''}`)
-				if(!res) return message.channel.send(`Looks like mcapi.ca is not reachable... Please verify it's online and not being blocked!`)
+				const res = await fetch(`https://mcapi.us/server/status?ip=${saddress}&port=${sport ? `${sport}` : '25565'}`)
+				if(!res) return message.channel.send(`Looks like mcapi.us is not reachable... Please verify it's online and not being blocked!`)
 				const body = await res.json()
 				debug(body, 2)
-				if(body.status) {
+				if(body.status == "success") {
 					const attachment = new Discord.MessageAttachment(Buffer.from(body.favicon.substr('data:image/png;base64,'.length), 'base64'), "icon.png")
 					var playerSample = (config.showPlayerSample ? body.players.sample : "");
 					var playersNow = ""
@@ -267,10 +268,10 @@ client.on('message', async(message) => {
 					playersNow = playersNow.replace(/,\s*$/, "")
 					const embed = new Discord.MessageEmbed().setAuthor(`${saddress}:${sport}`).attachFiles(attachment).setThumbnail("attachment://icon.png").addFields({
 						name: 'Motd',
-						value: `${body.motds.clean}`
+						value: `${body.motd ? `${body.motd}` : '\u200b'}`
 					}, {
 						name: 'Version',
-						value: `${body.version.name}`,
+						value: `${body.server.name ? `${body.server.name}` : '\u200b'}`,
 						inline: true
 					}, {
 						name: 'Status',
@@ -278,7 +279,7 @@ client.on('message', async(message) => {
 						inline: true
 					}, {
 						name: 'Players',
-						value: `${body.players.online}/${body.players.max} ${(body.players.sample == null?'':playersNow)}`
+						value: `${body.players.now}/${body.players.max} ${(body.players.sample == null?'':playersNow)}`
 					}, ).setColor("#5b8731").setFooter(`Minecraft Server Status Bot for Discord`)
 					message.channel.send(`Status for **${saddress}:${sport}**:`, {
 						embed
