@@ -70,9 +70,10 @@ const updatePin = async(body) => {
 			}
 		}
 		playersNow = playersNow.replace(/,\s*$/, "")
+		const cleanMotD = body.motd.replace(/§[0-9,a-z]/g,"");
 		const embed = new Discord.MessageEmbed().setAuthor(`${saddress}:${sport}`).attachFiles(attachment).setThumbnail("attachment://icon.png").addFields({
 			name: 'Motd',
-						value: `${body.motd ? `${body.motd}` : '\u200b'}`
+						value: `${body.motd ? `${cleanMotD}` : '\u200b'}`
 					}, {
 						name: 'Version',
 						value: `${body.server.name ? `${body.server.name}` : '\u200b'}`,
@@ -192,9 +193,10 @@ client.on('message', async(message) => {
 						}
 					}
 					playersNow = playersNow.replace(/,\s*$/, "")
+					const cleanMotD = body.motd.replace(/§[0-9,a-z]/g,"");
 					const embed = new Discord.MessageEmbed().setAuthor(`${saddress}:${sport}`).attachFiles(attachment).setThumbnail("attachment://icon.png").addFields({
 						name: 'Motd',
-						value: `${body.motd ? `${body.motd}` : '\u200b'}`
+						value: `${body.motd ? `${cleanMotD}` : '\u200b'}`
 					}, {
 						name: 'Version',
 						value: `${body.server.name ? `${body.server.name}` : '\u200b'}`,
@@ -266,9 +268,10 @@ client.on('message', async(message) => {
 						}
 					}
 					playersNow = playersNow.replace(/,\s*$/, "")
+					const cleanMotD = body.motd.replace(/§[0-9,a-z]/g,"");
 					const embed = new Discord.MessageEmbed().setAuthor(`${saddress}:${sport}`).attachFiles(attachment).setThumbnail("attachment://icon.png").addFields({
 						name: 'Motd',
-						value: `${body.motd ? `${body.motd}` : '\u200b'}`
+						value: `${body.motd ? `${cleanMotD}` : '\u200b'}`
 					}, {
 						name: 'Version',
 						value: `${body.server.name ? `${body.server.name}` : '\u200b'}`,
