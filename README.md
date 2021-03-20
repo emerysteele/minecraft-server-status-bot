@@ -41,10 +41,10 @@
   ![Example](https://github.com/emerysteele/minecraft-server-status-bot/blob/main/sample.png?raw=true)
 
 ## Notes
-- This bot uses the mcapi.ca API.
-  - mcapi.ca is ratelimited to 600 requests per 10 minutes.
+- This bot uses the mcapi.us API.
+  - mcapi.us is ratelimited to 600 requests per 10 minutes.
   - Try not to exceed this limit. If you do, your bots IP address could be blocked for abuse.
 
 
 
-Updated Oct 27th 2020
+Updated Mar 20th 2021
