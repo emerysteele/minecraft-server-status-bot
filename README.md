@@ -15,7 +15,6 @@
   - `npm i discord.js`
   - `npm i node-fetch`
   - `npm i ms`
-  - `npm i fs`
 - Run using: `node app.js` or if you use pm2: `pm2 start app.js`
 - Invite the bot to your discord server with permisions to:
   - `Send Messages`
