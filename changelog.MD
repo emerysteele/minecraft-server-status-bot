@@ -1,4 +1,8 @@
 # Changelog
+## Dec 07 2021 - v0.1.3
+- Added `package.json` with dependencies to ensure the proper module versions are installed.
+- Added version number
+
 ## Oct 27 2020
 - Added `showPlayerSample <true|false>` setting to enable/disable showing the sample player list.
   - Set to `true` by default
