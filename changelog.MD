@@ -1,4 +1,7 @@
 # Changelog
+## Dec 08 2021 - v0.1.4
+- Added handling for null server icon
+
 ## Dec 07 2021 - v0.1.3
 - Added `package.json` with dependencies to ensure the proper module versions are installed.
 - Added version number
