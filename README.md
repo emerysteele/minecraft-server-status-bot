@@ -12,7 +12,7 @@
 - Rename config.example.json > config.json
 - Edit config.json with your minecraft server info + discord bot token
 - CD to repo directory & install dependancies through npm:
-  - `npm i`
+  - `npm install`
 - Run using: `node app.js` or if you use pm2: `pm2 start app.js`
 - Invite the bot to your discord server with permisions to:
   - `Send Messages`
