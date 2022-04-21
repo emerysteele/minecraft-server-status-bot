@@ -187,7 +187,11 @@ client.on('message', async(message) => {
 				const body = await res.json()
 				debug(body, 2)
 				if(body.status == "success") {
-					const attachment = new Discord.MessageAttachment(Buffer.from(body.favicon.substr('data:image/png;base64,'.length), 'base64'), "icon.png")
+					var imageStream = Buffer.from(defaultFavicon, 'base64');
+					if(body.favicon != null){
+						imageStream = Buffer.from(body.favicon.substr('data:image/png;base64,'.length), 'base64');
+					}
+					const attachment = new Discord.MessageAttachment(imageStream, "icon.png");
 					var playerSample = (config.showPlayerSample ? body.players.sample : "");
 					var playersNow = ""
 					if(playerSample != null) {
